@@ -1,22 +1,35 @@
 package googlecodelabs.recyclerview
 
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.util.LinkedList
 
-class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
+class WordListAdapter() : RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
+
+    lateinit var mWordList : MutableList<String>
+    lateinit var mInflater: LayoutInflater
+
+    constructor(context : Context, wordList: MutableList<String>) : this() {
+        mWordList = wordList
+        mInflater = LayoutInflater.from(context)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        TODO("Not yet implemented")
+        val mItemView = mInflater.inflate(R.layout.wordlist_item, parent, false)
+        return WordViewHolder(mItemView, this)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return mWordList.size
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val mCurrentWord : String = mWordList[position]
+        holder.wordItemView.text = mCurrentWord
     }
 
 

@@ -33,7 +33,7 @@ class WordListAdapter() : RecyclerView.Adapter<WordListAdapter.WordViewHolder>()
     }
 
 
-    class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         lateinit var wordItemView : TextView
         lateinit var mAdapter : WordListAdapter
@@ -41,6 +41,19 @@ class WordListAdapter() : RecyclerView.Adapter<WordListAdapter.WordViewHolder>()
         constructor(itemView: View, adapter: WordListAdapter) : this(itemView){
             wordItemView = itemView.findViewById(R.id.word)
             this.mAdapter = adapter
+
+            //Connect the onClickListener with the View
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val mPosition = layoutPosition
+            val element : String = mWordList[mPosition]
+            mWordList[mPosition] = "CLicked $element"
+
+            // Notify the adapter that the data has changed so it can
+            // update the RecyclerView to display the data.
+            mAdapter.notifyDataSetChanged()
         }
     }
 }

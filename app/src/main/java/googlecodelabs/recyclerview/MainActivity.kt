@@ -24,14 +24,23 @@ class MainActivity : AppCompatActivity() {
         }
         Log.d("mWordList", mWordList.toString())
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setImageResource(R.drawable.ic_add_for_fab)
-
         mRecyclerView = findViewById(R.id.recyclerview)
         mAdapter = WordListAdapter(this, mWordList)
 
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.apply{
+            setImageResource(R.drawable.ic_add_for_fab)
+            setOnClickListener {
+                val wordListSize : Int = mWordList.size
+                mWordList.add("+ Word $wordListSize")
+
+                (mRecyclerView.adapter as WordListAdapter).notifyItemInserted(wordListSize)
+                mRecyclerView.smoothScrollToPosition(wordListSize)
+            }
+        }
 
     }
 }

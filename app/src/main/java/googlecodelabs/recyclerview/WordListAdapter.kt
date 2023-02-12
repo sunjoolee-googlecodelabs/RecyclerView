@@ -37,11 +37,9 @@ class WordListAdapter() : RecyclerView.Adapter<WordListAdapter.WordViewHolder>()
 
         lateinit var wordItemView : TextView
         lateinit var mAdapter : WordListAdapter
-        init{
-            wordItemView = itemView.findViewById(R.id.word)
-        }
 
         constructor(itemView: View, adapter: WordListAdapter) : this(itemView){
+            wordItemView = itemView.findViewById(R.id.word)
             this.mAdapter = adapter
         }
     }
